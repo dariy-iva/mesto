@@ -1,4 +1,4 @@
-.form__reset-button {
+.popup__reset-button {
 	width: 32px;
 	height: 32px;
 	border: none;
@@ -8,7 +8,7 @@
 	right: -40px;
 }
 @media (max-width: 767px) {
-	.form__reset-button {
+	.popup__reset-button {
 		width: 20px;
 		height: 20px;
 		top: -36px;

@@ -1,4 +1,4 @@
-.overlay {
+.popup {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -8,7 +8,7 @@
 	background: rgba(0, 0, 0, .5);
 }
 @media (max-width: 767px) {
-	.overlay {
+	.popup {
 		padding: 0 19px;
 	}
 }
