@@ -14,7 +14,7 @@
 		<div class="container">
 			<header class="header">
 				<nav>
-					<a href="#"><img src="./images/logo.svg" alt="логотип" class="header__logo"></a>
+					<a href="#"><img src="./images/logo.svg" alt="логотип" class="header__logo link-hover"></a>
 				</nav>
 			</header>
 			<main class="content">
@@ -27,12 +27,54 @@
 					</div>
 					<button class="profile__add-button button-hover"></button>
 				</section>
-
+				<section class="posts">
+					<figure class="post">
+						<img src="./images/canada.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Канада</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+					<figure class="post">
+						<img src="./images/norway.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Норвегия</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+					<figure class="post">
+						<img src="./images/russia.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Россия</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+					<figure class="post">
+						<img src="./images/bolivia.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Боливия</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+					<figure class="post">
+						<img src="./images/island.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Исландия</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+					<figure class="post">
+						<img src="./images/romania.jpg" alt="фото" class="post__photo">
+						<figcaption class="post__caption">Румыния</figcaption>
+						<button class="post__like-button post__like-button_active button-hover"></button>
+					</figure>
+				</section>
 			</main>
 		</div>
 		<footer class="footer">
 			<p class="footer__author">&copy;&nbsp;2021 Daria Ivanova</p>
 		</footer>
+		<div class="overlay">
+			<form action="#" class="form">
+				<legend class="form__title">Редактировать профиль</legend>
+				<fieldset class="form__about-myself">
+					<input type="text" class="form__input-text form__input-text_name" placeholder="Жак-Ив Кусто">
+					<input type="text" class="form__input-text" placeholder="Исследователь океана">
+				</fieldset>
+				<input type="submit" value="Сохранить" class="form__submit-button button-hover">
+				<input type="reset" value="" class="form__reset-button button-hover">
+			</form>
+		</div>
 	</div>
 </body>
 
