@@ -5,6 +5,9 @@
 	line-height: 1.15;
 	margin: 0 0 9px;
 	text-transform: capitalize;
+	text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 @media (max-width: 1023px) {
 	.profile__name {

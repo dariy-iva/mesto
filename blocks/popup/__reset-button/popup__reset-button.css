@@ -4,14 +4,19 @@
 	border: none;
 	background: url(../../../images/reset-button.svg) no-repeat center;
 	position: absolute;
-	top: -40px;
-	right: -40px;
+	top: calc(-8px - 32px);
+	right: calc(-8px - 32px);
+	transition: opacity .3s;
+}
+.popup__reset-button:hover {
+	cursor: pointer;
+	opacity: .6;
 }
 @media (max-width: 767px) {
 	.popup__reset-button {
 		width: 20px;
 		height: 20px;
-		top: -36px;
+		top: calc(-16px - 20px);
 		right: 0;
 	}
 }

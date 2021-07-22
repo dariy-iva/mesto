@@ -1,7 +1,6 @@
 .page {
 	margin: 0 auto;
-	max-width: 1280px;
-	padding: 0 200px;
+	max-width: calc(1280px - 400px);
 	box-sizing: border-box;
 	min-height: 100vh;
 	display: flex;
