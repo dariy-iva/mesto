@@ -11,54 +11,52 @@
 
 <body class="body">
 	<div class="page">
-		<div class="container">
-			<header class="header">
-				<a href="#"><img src="./images/logo.svg" alt="логотип" class="header__logo link-hover"></a>
-			</header>
-			<main class="content">
-				<section class="profile">
-					<img src="./images/kusto.jpg" alt="аватар" class="profile__avatar">
-					<div class="profile__info">
-						<h1 class="profile__name">Жак-Ив Кусто</h1>
-						<p class="profile__about-me">Исследователь океана</p>
-						<button class="profile__edit-button" type="button"></button>
-					</div>
-					<button class="profile__add-button" type="button"></button>
-				</section>
-				<section class="posts">
-					<article class="post">
-						<img src="./images/canada.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Канада</p>
-						<button class="post__like-button"></button>
-					</article>
-					<article class="post">
-						<img src="./images/norway.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Норвегия</p>
-						<button class="post__like-button"></button>
-					</article>
-					<article class="post">
-						<img src="./images/russia.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Россия</p>
-						<button class="post__like-button"></button>
-					</article>
-					<article class="post">
-						<img src="./images/bolivia.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Боливия</p>
-						<button class="post__like-button"></button>
-					</article>
-					<article class="post">
-						<img src="./images/island.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Исландия</p>
-						<button class="post__like-button"></button>
-					</article>
-					<article class="post">
-						<img src="./images/romania.jpg" alt="фото" class="post__photo">
-						<p class="post__caption">Румыния</p>
-						<button class="post__like-button"></button>
-					</article>
-				</section>
-			</main>
-		</div>
+		<header class="header">
+			<a href="#"><img src="./images/logo.svg" alt="логотип" class="header__logo link-hover"></a>
+		</header>
+		<main class="content">
+			<section class="profile">
+				<img src="./images/kusto.jpg" alt="аватар" class="profile__avatar">
+				<div class="profile__info">
+					<h1 class="profile__name">Жак-Ив Кусто</h1>
+					<p class="profile__about-me">Исследователь океана</p>
+					<button class="profile__edit-button" type="button"></button>
+				</div>
+				<button class="profile__add-button" type="button"></button>
+			</section>
+			<section class="posts">
+				<article class="post">
+					<img src="./images/canada.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Канада</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+				<article class="post">
+					<img src="./images/norway.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Норвегия</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+				<article class="post">
+					<img src="./images/russia.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Россия</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+				<article class="post">
+					<img src="./images/bolivia.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Боливия</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+				<article class="post">
+					<img src="./images/island.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Исландия</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+				<article class="post">
+					<img src="./images/romania.jpg" alt="фото" class="post__photo">
+					<p class="post__caption">Румыния</p>
+					<button type="button" class="post__like-button"></button>
+				</article>
+			</section>
+		</main>
 		<footer class="footer">
 			<p class="footer__author">&copy;&nbsp;2021 Daria Ivanova</p>
 		</footer>
@@ -67,8 +65,10 @@
 				<h2 class="popup__title">Редактировать профиль</h2>
 				<form action="#" name="formEditProfile">
 					<fieldset class="popup__fieldset">
-						<input type="text" class="popup__text popup__text_content_name" placeholder="Жак-Ив Кусто" name="formNameInput">
-						<input type="text" class="popup__text" placeholder="Исследователь океана" id="about-me" name="formAboutMeInput">
+						<input type="text" class="popup__text popup__text_content_name" placeholder="Жак-Ив Кусто"
+							name="formNameInput">
+						<input type="text" class="popup__text" placeholder="Исследователь океана" id="about-me"
+							name="formAboutMeInput">
 					</fieldset>
 					<button type="submit" class="popup__submit-button">Сохранить</button>
 					<button type="reset" class="popup__reset-button"></button>
