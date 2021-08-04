@@ -9,10 +9,10 @@
 	text-align: center;
 	color: #fff;
 	padding: 14px 0;
+	cursor: pointer;
 	transition: opacity .3s;
 }
 .popup__submit-button:hover {
-	cursor: pointer;
 	opacity: .8;
 }
 @media (max-width: 767px) {

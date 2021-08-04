@@ -6,9 +6,9 @@
 	position: absolute;
 	right: 20px;
 	bottom: 30px;
+	cursor: pointer;
 	transition: opacity .3s;
 }
 .post__like-button:hover {
-	cursor: pointer;
 	opacity: .5;
 }

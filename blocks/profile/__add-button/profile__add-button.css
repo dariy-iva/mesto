@@ -7,14 +7,15 @@
 	border: 2px solid #fff;
 	border-radius: 2px;
 	margin-left: auto;
+	cursor: pointer;
 	transition: opacity .3s;
 }
 .profile__add-button:hover {
-	cursor: pointer;
 	opacity: .6;
 }
 @media (max-width: 767px) {
 	.profile__add-button {
-		width: 100%;
+		width: 282px;
+		margin: 0 auto;
 	}
 }

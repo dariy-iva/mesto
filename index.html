@@ -25,42 +25,20 @@
 				<button class="profile__add-button" type="button"></button>
 			</section>
 			<section class="posts">
-				<article class="post">
-					<img src="./images/canada.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Канада</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
-				<article class="post">
-					<img src="./images/norway.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Норвегия</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
-				<article class="post">
-					<img src="./images/russia.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Россия</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
-				<article class="post">
-					<img src="./images/bolivia.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Боливия</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
-				<article class="post">
-					<img src="./images/island.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Исландия</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
-				<article class="post">
-					<img src="./images/romania.jpg" alt="фото" class="post__photo">
-					<p class="post__caption">Румыния</p>
-					<button type="button" class="post__like-button"></button>
-				</article>
+				<template class="post-template">
+					<article class="post">
+						<img src="" alt="фото" class="post__photo">
+						<p class="post__caption"></p>
+						<button type="button" class="post__like-button"></button>
+						<button type="button" class="post__del-button"></button>
+					</article>
+				</template>
 			</section>
 		</main>
 		<footer class="footer">
 			<p class="footer__author">&copy;&nbsp;2021 Daria Ivanova</p>
 		</footer>
-		<div class="popup">
+		<div class="popup" id="popup-edit-profile">
 			<div class="popup__container">
 				<h2 class="popup__title">Редактировать профиль</h2>
 				<form action="#" name="formEditProfile">
@@ -73,6 +51,27 @@
 					<button type="submit" class="popup__submit-button">Сохранить</button>
 					<button type="reset" class="popup__reset-button"></button>
 				</form>
+			</div>
+		</div>
+		<div class="popup" id="popup-add-profile">
+			<div class="popup__container">
+				<h2 class="popup__title">Новое место</h2>
+				<form action="#" name="formAddProfile">
+					<fieldset class="popup__fieldset">
+						<input type="text" class="popup__text" placeholder="Название" id="place" name="formMestoInput" required>
+						<input type="text" class="popup__text" placeholder="Ссылка на картинку" id="link" name="formLinkInput"
+							required>
+					</fieldset>
+					<button type="submit" class="popup__submit-button">Создать</button>
+					<button type="reset" class="popup__reset-button"></button>
+				</form>
+			</div>
+		</div>
+		<div class="popup popup_content_photo" id="popup-open-photo">
+			<div class="popup__photo-box">
+				<img src="" alt="фото" class="popup__photo">
+				<p class="popup__caption-photo"></p>
+				<button type="button" class="popup__reset-button"></button>
 			</div>
 		</div>
 	</div>

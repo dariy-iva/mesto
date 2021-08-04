@@ -6,10 +6,10 @@
 	position: absolute;
 	top: calc(-8px - 32px);
 	right: calc(-8px - 32px);
+	cursor: pointer;
 	transition: opacity .3s;
 }
 .popup__reset-button:hover {
-	cursor: pointer;
 	opacity: .6;
 }
 @media (max-width: 767px) {

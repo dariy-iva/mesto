@@ -8,10 +8,10 @@
 	background: url(../../../images/edit-button.svg) no-repeat center;
 	background-color: #000;
 	border: 1px solid #fff;
+	cursor: pointer;
 	transition: opacity .3s;
 }
 .profile__edit-button:hover {
-	cursor: pointer;
 	opacity: .6;
 }
 @media (max-width: 767px) {
