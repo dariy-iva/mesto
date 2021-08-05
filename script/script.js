@@ -82,6 +82,7 @@ function createPost(item) {
   const postTemplate = document.querySelector('.post-template').content.firstElementChild.cloneNode(true);
 
   postTemplate.querySelector('.post__photo').src = item.link;
+  postTemplate.querySelector('.post__photo').alt = item.name;
   postTemplate.querySelector('.post__caption').textContent = item.name;
   postTemplate.querySelector('.post__like-button').addEventListener('click', addLikePost);
   postTemplate.querySelector('.post__del-button').addEventListener('click', removePost);
@@ -125,7 +126,7 @@ function handleSubmitFormAddProfile(evt) {
     renderPosts(newPost);
   }
   closePopup(popupPost);
-  document.getElementsByName('formAddProfile')[0].reset();
+  document.querySelector('#form-add-profile').reset();
 }
 
 formElementAddProfile.addEventListener('submit', handleSubmitFormAddProfile);
