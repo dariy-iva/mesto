@@ -69,6 +69,7 @@ function showPopupPhoto(event) {
   openPopup(popupPhoto);
 
   popupPhotoElementPhoto.src = event.target.src;
+  popupPhotoElementPhoto.alt = event.target.alt;
   popupPhotoElementCaption.textContent = event.currentTarget.nextElementSibling.textContent;
 }
 
