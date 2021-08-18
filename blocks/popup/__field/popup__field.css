@@ -1,0 +1,9 @@
+.popup__field {
+  display: block;
+}
+.popup__field:not(:last-of-type) {
+	margin-bottom: 32px;
+}
+.popup__field:last-of-type {
+	margin-bottom: 50px;
+}

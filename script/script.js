@@ -1,17 +1,38 @@
 'use strict';
 
+// закрытие попап кликом на оверлей
+function closePopupOnOverlay(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(popupOpened);
+  }
+}
+
+// закрытие попап нажатием на esc
+function closePopupOnEsc(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  enableValidation(obj);
+  document.addEventListener('keydown', closePopupOnEsc);
+  popup.addEventListener('click', closePopupOnOverlay);
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupOnEsc);
+  popup.removeEventListener('click', closePopupOnOverlay);
 }
 
 const nameProfile = document.querySelector('.profile__name');
 const aboutMeProfile = document.querySelector('.profile__about-me');
 const formElementEditProfile = document.querySelector('#popup-edit-profile .popup__container');
-const nameInput = formElementEditProfile.querySelector('.popup__text_content_name');
-const aboutMeInput = formElementEditProfile.querySelector('#about-me');
+const nameInput = formElementEditProfile.querySelector('.popup__input_content_name');
+const aboutMeInput = formElementEditProfile.querySelector('#about-me-input');
 const popupProfile = document.querySelector('#popup-edit-profile');
 
 // открытие окна редактирования профиля с получением данных со страницы
@@ -42,6 +63,7 @@ function handleSubmitFormEditProfile(evt) {
   }
   closePopup(popupProfile);
 }
+
 formElementEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
 
 const posts = document.querySelector('.posts');
@@ -88,7 +110,7 @@ function createPost(item) {
   postTemplate.querySelector('.post__like-button').addEventListener('click', addLikePost);
   postTemplate.querySelector('.post__del-button').addEventListener('click', removePost);
   postTemplate.querySelector('.post__photo').addEventListener('click', showPopupPhoto);
-  
+
   return postTemplate;
 }
 
@@ -113,8 +135,8 @@ popupAddReset.addEventListener('click', function () {
 });
 
 const formElementAddProfile = document.querySelector('#popup-add-profile .popup__container');
-const placeInput = formElementAddProfile.querySelector('#place');
-const linkInput = formElementAddProfile.querySelector('#link');
+const placeInput = formElementAddProfile.querySelector('#place-input');
+const linkInput = formElementAddProfile.querySelector('#link-input');
 
 // обработчик отправки формы добавления поста
 function handleSubmitFormAddProfile(evt) {
@@ -131,3 +153,5 @@ function handleSubmitFormAddProfile(evt) {
 }
 
 formElementAddProfile.addEventListener('submit', handleSubmitFormAddProfile);
+
+

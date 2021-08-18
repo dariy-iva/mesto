@@ -1,0 +1,6 @@
+.popup__submit-button_inactive {
+	opacity: .2;
+}
+.popup__submit-button_inactive:hover {
+	opacity: .2;
+}
