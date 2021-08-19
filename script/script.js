@@ -18,19 +18,18 @@ function closePopupOnEsc(evt) {
 
 // скрыть ошибки в форме
 function hideError(popup) {
-  const inputElements = Array.from(popup.querySelectorAll('.popup__input'));
+  const inputElements = Array.from(popup.querySelectorAll(validationConfig.inputSelector));
   inputElements.forEach((inputElement) => {
-    inputElement.classList.remove('popup__input_type_error');
+    inputElement.classList.remove(validationConfig.inputErrorClass);
   });
   const errorElements = Array.from(popup.querySelectorAll('.popup__error'));
   errorElements.forEach((errorElement) => {
-    errorElement.classList.remove('popup__error_visible');
+    errorElement.classList.remove(validationConfig.errorClass);
     errorElement.textContent = '';
   })
 }
 
 function openPopup(popup) {
-  hideError(popup);
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupOnEsc);
   popup.addEventListener('click', closePopupOnOverlay);
@@ -39,7 +38,6 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupOnEsc);
   popup.removeEventListener('click', closePopupOnOverlay);
-  popup.querySelector('.popup__form').reset();
 }
 
 const nameProfile = document.querySelector('.profile__name');
@@ -60,7 +58,7 @@ setInfoInPopupProfile();
 
 // переключение кнопки в активное состояние
 function toggleButtonOnActive(buttonElement) {
-  buttonElement.classList.remove('popup__submit-button_inactive');
+  buttonElement.classList.remove(validationConfig.inactiveButtonClass);
   buttonElement.disabled = false;
 }
 
@@ -68,6 +66,7 @@ function toggleButtonOnActive(buttonElement) {
 function openPopupProfile() {
   setInfoInPopupProfile();
   toggleButtonOnActive(buttonSubmitPopupEditProfile);
+  hideError(popupProfile);
   openPopup(popupProfile);
 }
 
@@ -148,6 +147,7 @@ const popupPost = document.querySelector('#popup-add-profile');
 // открытие окна добавления поста
 const profileAddButton = document.querySelector('.profile__add-button');
 profileAddButton.addEventListener('click', function () {
+  hideError(popupPost);
   openPopup(popupPost);
 })
 
@@ -164,7 +164,7 @@ const linkInput = formElementAddProfile.querySelector('#link-input');
 
 // переключение кнопки в неактивное состояние
 function toggleButtonOnDisabled(buttonElement) {
-  buttonElement.classList.add('popup__submit-button_inactive');
+  buttonElement.classList.add(validationConfig.inactiveButtonClass);
   buttonElement.disabled = true;
 }
 
@@ -178,6 +178,7 @@ function handleSubmitFormAddProfile(evt) {
   }
   renderPosts(newPost);
   closePopup(popupPost);
+  popupPost.querySelector('.popup__form').reset();
   toggleButtonOnDisabled(buttonSubmitPopupAddProfile);
 }
 
