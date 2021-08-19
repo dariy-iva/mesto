@@ -10,15 +10,28 @@ function closePopupOnOverlay(evt) {
 
 // закрытие попап нажатием на esc
 function closePopupOnEsc(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
 }
 
+// скрыть ошибки в форме
+function hideError(popup) {
+  const inputElements = Array.from(popup.querySelectorAll('.popup__input'));
+  inputElements.forEach((inputElement) => {
+    inputElement.classList.remove('popup__input_type_error');
+  });
+  const errorElements = Array.from(popup.querySelectorAll('.popup__error'));
+  errorElements.forEach((errorElement) => {
+    errorElement.classList.remove('popup__error_visible');
+    errorElement.textContent = '';
+  })
+}
+
 function openPopup(popup) {
+  hideError(popup);
   popup.classList.add('popup_opened');
-  enableValidation(obj);
   document.addEventListener('keydown', closePopupOnEsc);
   popup.addEventListener('click', closePopupOnOverlay);
 }
@@ -26,6 +39,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupOnEsc);
   popup.removeEventListener('click', closePopupOnOverlay);
+  popup.querySelector('.popup__form').reset();
 }
 
 const nameProfile = document.querySelector('.profile__name');
@@ -34,17 +48,30 @@ const formElementEditProfile = document.querySelector('#popup-edit-profile .popu
 const nameInput = formElementEditProfile.querySelector('.popup__input_content_name');
 const aboutMeInput = formElementEditProfile.querySelector('#about-me-input');
 const popupProfile = document.querySelector('#popup-edit-profile');
+const buttonSubmitPopupEditProfile = popupProfile.querySelector('.popup__submit-button');
+const buttonOpenEditProfile = document.querySelector('.profile__edit-button');
 
-// открытие окна редактирования профиля с получением данных со страницы
-const buttonEditProfile = document.querySelector('.profile__edit-button');
-
-function openPopupProfile() {
+// заполнение полей в форме редактирования профиля данными со страницы
+function setInfoInPopupProfile() {
   nameInput.value = nameProfile.textContent;
   aboutMeInput.value = aboutMeProfile.textContent;
+}
+setInfoInPopupProfile();
+
+// переключение кнопки в активное состояние
+function toggleButtonOnActive(buttonElement) {
+  buttonElement.classList.remove('popup__submit-button_inactive');
+  buttonElement.disabled = false;
+}
+
+// открытие окна редактирования профиля
+function openPopupProfile() {
+  setInfoInPopupProfile();
+  toggleButtonOnActive(buttonSubmitPopupEditProfile);
   openPopup(popupProfile);
 }
 
-buttonEditProfile.addEventListener('click', openPopupProfile);
+buttonOpenEditProfile.addEventListener('click', openPopupProfile);
 
 // закрытие окна редактирования профиля
 const popupEditReset = document.querySelector('#popup-edit-profile .popup__reset-button');
@@ -55,12 +82,8 @@ popupEditReset.addEventListener('click', function () {
 // обработчик отправки формы редактирования профиля
 function handleSubmitFormEditProfile(evt) {
   evt.preventDefault();
-  if (nameInput.value) {
-    nameProfile.textContent = nameInput.value;
-  }
-  if (aboutMeInput.value) {
-    aboutMeProfile.textContent = aboutMeInput.value;
-  }
+  nameProfile.textContent = nameInput.value;
+  aboutMeProfile.textContent = aboutMeInput.value;
   closePopup(popupProfile);
 }
 
@@ -138,6 +161,14 @@ const formElementAddProfile = document.querySelector('#popup-add-profile .popup_
 const placeInput = formElementAddProfile.querySelector('#place-input');
 const linkInput = formElementAddProfile.querySelector('#link-input');
 
+
+// переключение кнопки в неактивное состояние
+function toggleButtonOnDisabled(buttonElement) {
+  buttonElement.classList.add('popup__submit-button_inactive');
+  buttonElement.disabled = true;
+}
+
+const buttonSubmitPopupAddProfile = document.querySelector('#popup-add-profile .popup__submit-button');
 // обработчик отправки формы добавления поста
 function handleSubmitFormAddProfile(evt) {
   evt.preventDefault();
@@ -145,13 +176,9 @@ function handleSubmitFormAddProfile(evt) {
     name: placeInput.value,
     link: linkInput.value
   }
-  if (placeInput.value && linkInput.value) {
-    renderPosts(newPost);
-  }
+  renderPosts(newPost);
   closePopup(popupPost);
-  document.querySelector('#form-add-profile').reset();
+  toggleButtonOnDisabled(buttonSubmitPopupAddProfile);
 }
 
 formElementAddProfile.addEventListener('submit', handleSubmitFormAddProfile);
-
-
