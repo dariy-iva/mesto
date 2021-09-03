@@ -1,4 +1,24 @@
-'use strict';
+import { Card, initialPostsItems } from './Card.js';
+import { FormValidator, validationConfig } from './FormValidator.js';
+
+// отрисовка постов на странице 
+function renderPosts(item) {
+  const posts = document.querySelector('.posts');
+  const Post = new Card(item, '.post-template');
+
+  const postElement = Post.generatePost();
+  posts.prepend(postElement);
+}
+initialPostsItems.forEach(renderPosts);
+
+// валидация форм
+const formEditPrifileElement = document.querySelector('.popup__form_contain_edit-profile');
+const formAddPostElement = document.querySelector('.popup__form_contain_add-post');
+const EditProfileFormValidate = new FormValidator(validationConfig, formEditPrifileElement);
+const AddPostFormValidate = new FormValidator(validationConfig, formAddPostElement);
+
+EditProfileFormValidate.enableValidation();
+AddPostFormValidate.enableValidation();
 
 // закрытие попап кликом на оверлей
 function closePopupOnOverlay(evt) {
@@ -18,13 +38,13 @@ function closePopupOnEsc(evt) {
 
 // скрыть ошибки в форме
 function hideError(popup) {
-  const inputElements = Array.from(popup.querySelectorAll(validationConfig.inputSelector));
+  const inputElements = Array.from(popup.querySelectorAll('.popup__input'));
   inputElements.forEach((inputElement) => {
-    inputElement.classList.remove(validationConfig.inputErrorClass);
+    inputElement.classList.remove('popup__input_type_error');
   });
   const errorElements = Array.from(popup.querySelectorAll('.popup__error'));
   errorElements.forEach((errorElement) => {
-    errorElement.classList.remove(validationConfig.errorClass);
+    errorElement.classList.remove('popup__error_visible');
     errorElement.textContent = '';
   })
 }
@@ -58,7 +78,7 @@ setInfoInPopupProfile();
 
 // переключение кнопки в активное состояние
 function toggleButtonOnActive(buttonElement) {
-  buttonElement.classList.remove(validationConfig.inactiveButtonClass);
+  buttonElement.classList.remove('popup__submit-button_inactive');
   buttonElement.disabled = false;
 }
 
@@ -88,60 +108,13 @@ function handleSubmitFormEditProfile(evt) {
 
 formElementEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
 
-const posts = document.querySelector('.posts');
-
-// добавление/удаление лайков к постам
-function addLikePost(event) {
-  if (!event.target.classList.contains('post__like-button_active')) {
-    return event.target.classList.add('post__like-button_active');
-  }
-  event.target.classList.remove('post__like-button_active');
-}
-
-// удаление поста
-function removePost(event) {
-  event.target.closest('.post').remove();
-}
-
 const popupPhoto = document.querySelector('#popup-open-photo');
 const popupPhotoReset = popupPhoto.querySelector('.popup__reset-button');
-const popupPhotoElementPhoto = popupPhoto.querySelector('.popup__photo');
-const popupPhotoElementCaption = popupPhoto.querySelector('.popup__caption-photo');
-
-// открытие окна просмотра фотографий
-function showPopupPhoto(event) {
-  openPopup(popupPhoto);
-
-  popupPhotoElementPhoto.src = event.target.src;
-  popupPhotoElementPhoto.alt = event.target.alt;
-  popupPhotoElementCaption.textContent = event.currentTarget.nextElementSibling.textContent;
-}
 
 // закрытие окна просмотра фотографий
 popupPhotoReset.addEventListener('click', function () {
   closePopup(popupPhoto);
 });
-
-// создание поста с функционалом элементов
-function createPost(item) {
-  const postTemplate = document.querySelector('.post-template').content.firstElementChild.cloneNode(true);
-
-  postTemplate.querySelector('.post__photo').src = item.link;
-  postTemplate.querySelector('.post__photo').alt = item.name;
-  postTemplate.querySelector('.post__caption').textContent = item.name;
-  postTemplate.querySelector('.post__like-button').addEventListener('click', addLikePost);
-  postTemplate.querySelector('.post__del-button').addEventListener('click', removePost);
-  postTemplate.querySelector('.post__photo').addEventListener('click', showPopupPhoto);
-
-  return postTemplate;
-}
-
-// отрисовка постов на странице 
-function renderPosts(item) {
-  posts.prepend(createPost(item));
-}
-
-initialPosts.forEach(renderPosts);
 
 const popupPost = document.querySelector('#popup-add-profile');
 // открытие окна добавления поста
@@ -164,7 +137,7 @@ const linkInput = formElementAddProfile.querySelector('#link-input');
 
 // переключение кнопки в неактивное состояние
 function toggleButtonOnDisabled(buttonElement) {
-  buttonElement.classList.add(validationConfig.inactiveButtonClass);
+  buttonElement.classList.add('popup__submit-button_inactive');
   buttonElement.disabled = true;
 }
 
@@ -183,3 +156,5 @@ function handleSubmitFormAddProfile(evt) {
 }
 
 formElementAddProfile.addEventListener('submit', handleSubmitFormAddProfile);
+
+export { openPopup, popupPhoto }

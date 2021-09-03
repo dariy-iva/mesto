@@ -41,7 +41,7 @@
 		<div class="popup" id="popup-edit-profile">
 			<div class="popup__container">
 				<h2 class="popup__title">Редактировать профиль</h2>
-				<form action="#" name="formEditProfile" class="popup__form">
+				<form action="#" name="formEditProfile" class="popup__form popup__form_contain_edit-profile">
 					<fieldset class="popup__fieldset">
 						<label class="popup__field">
 							<input type="text" class="popup__input popup__input_content_name" placeholder="Жак-Ив Кусто"
@@ -62,7 +62,7 @@
 		<div class="popup" id="popup-add-profile">
 			<div class="popup__container">
 				<h2 class="popup__title">Новое место</h2>
-				<form action="#" name="formAddProfile" id="form-add-profile" class="popup__form">
+				<form action="#" name="formAddProfile" id="form-add-profile" class="popup__form popup__form_contain_add-post">
 					<fieldset class="popup__fieldset">
 						<label class="popup__field">
 							<input type="text" class="popup__input" placeholder="Название" id="place-input" name="formMestoInput"
@@ -88,9 +88,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="./script/initial-posts.js"></script>
-	<script src="./script/script.js"></script>
-	<script src="./script/validate.js"></script>
+	<script type="module" src="./script/index.js"></script>
+	<script type="module" src="./script/Card.js"></script>
+	<script type="module" src="./script/FormValidator.js"></script>
 </body>
 
 </html>
