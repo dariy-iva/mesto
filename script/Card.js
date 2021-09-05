@@ -1,31 +1,4 @@
-import { openPopup, popupPhoto } from './index.js'
-
-const initialPostsItems = [
-  {
-    name: 'Канада',
-    link: './images/canada.jpg'
-  },
-  {
-    name: 'Норвегия',
-    link: './images/norway.jpg'
-  },
-  {
-    name: 'Россия',
-    link: './images/russia.jpg'
-  },
-  {
-    name: 'Боливия',
-    link: './images/bolivia.jpg'
-  },
-  {
-    name: 'Исландия',
-    link: './images/island.jpg'
-  },
-  {
-    name: 'Румыния',
-    link: './images/romania.jpg'
-  },
-];
+import { openPopup, popupShowPhoto } from './index.js'
 
 class Card {
   constructor(data, postSelector) {
@@ -45,10 +18,7 @@ class Card {
   }
 
   _handleLikePost() {
-    if (!this._element.querySelector('.post__like-button').classList.contains('post__like-button_active')) {
-      return this._element.querySelector('.post__like-button').classList.add('post__like-button_active');
-    }
-    this._element.querySelector('.post__like-button').classList.remove('post__like-button_active');
+    this._element.querySelector('.post__like-button').classList.toggle('post__like-button_active');
   }
 
   _handleRemovePost() {
@@ -56,17 +26,14 @@ class Card {
   }
 
   _handleShowPopupPhoto() {
-    const popupPhotoElementPhoto = popupPhoto.querySelector('.popup__photo');
-    const popupPhotoElementCaption = popupPhoto.querySelector('.popup__caption-photo');
+    const popupShowPhotoElementPhoto = popupShowPhoto.querySelector('.popup__photo');
+    const popupShowPhotoElementCaption = popupShowPhoto.querySelector('.popup__caption-photo');
 
-    openPopup(popupPhoto);
+    openPopup(popupShowPhoto);
 
-    popupPhotoElementPhoto.src = this._element.querySelector('.post__photo').src;
-    popupPhotoElementPhoto.alt = this._element.querySelector('.post__photo').alt;
-    popupPhotoElementCaption.textContent = this._element
-      .querySelector('.post__photo')
-      .nextElementSibling
-      .textContent;
+    popupShowPhotoElementPhoto.src = this._link;
+    popupShowPhotoElementPhoto.alt = this._name;
+    popupShowPhotoElementCaption.textContent = this._name;
   }
 
   _setEventListeners() {
@@ -94,4 +61,4 @@ class Card {
   }
 };
 
-export { Card, initialPostsItems };
+export { Card };
