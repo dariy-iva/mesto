@@ -1,10 +1,9 @@
-import { openPopup, popupShowPhoto } from '../pages/index.js'
-
-class Card {
-  constructor(data, postSelector) {
+export default class Card {
+  constructor({data, handleCardClick}, postSelector) {
     this._name = data.name;
     this._link = data.link;
     this._postSelector = postSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -25,17 +24,6 @@ class Card {
     this._element.querySelector('.post__del-button').closest('.post').remove();
   }
 
-  _handleShowPopupPhoto() {
-    const popupShowPhotoElementPhoto = popupShowPhoto.querySelector('.popup__photo');
-    const popupShowPhotoElementCaption = popupShowPhoto.querySelector('.popup__caption-photo');
-
-    openPopup(popupShowPhoto);
-
-    popupShowPhotoElementPhoto.src = this._link;
-    popupShowPhotoElementPhoto.alt = this._name;
-    popupShowPhotoElementCaption.textContent = this._name;
-  }
-
   _setEventListeners() {
 
     this._element.querySelector('.post__like-button').addEventListener('click', () => {
@@ -45,7 +33,7 @@ class Card {
       this._handleRemovePost();
     });
     this._element.querySelector('.post__photo').addEventListener('click', () => {
-      this._handleShowPopupPhoto();
+      this._handleCardClick();
     });
   }
 
@@ -60,5 +48,3 @@ class Card {
     return this._element;
   }
 };
-
-export { Card };

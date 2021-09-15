@@ -1,4 +1,4 @@
-import { Card } from '../components/Card.js';
+import Card from '../components/Card.js';
 import { FormValidator, validationConfig } from '../components/FormValidator.js';
 import { initialCardsItems } from '../utils/initialCard.js';
 import Section from '../components/Section.js';
@@ -9,7 +9,6 @@ import {
   formElementAddPost,
   popupEditProfile,
   popupAddPost,
-  popupShowPhoto,
   nameInput,
   aboutMeInput,
   placeInput,
@@ -20,39 +19,12 @@ import {
   buttonSubmitPopupAddProfile,
   buttonResetPopupEditProfile,
   buttonResetPopupAddPost,
-  buttonResetPopupShowPhoto,
   postsSectionSelector
 } from '../utils/constants.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 const editProfileFormValidate = new FormValidator(validationConfig, formElementEditProfile);
 const addPostFormValidate = new FormValidator(validationConfig, formElementAddPost);
-
-// закрытие попап кликом на оверлей
-function closePopupOnOverlay(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(popupOpened);
-  }
-}
-
-// закрытие попап нажатием на esc
-function closePopupOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnEsc);
-  popup.addEventListener('click', closePopupOnOverlay);
-}
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnEsc);
-  popup.removeEventListener('click', closePopupOnOverlay);
-}
 
 // заполнение полей в форме редактирования профиля данными со страницы
 function setInfoInPopupProfile() {
@@ -109,11 +81,6 @@ function handleClosePopupEditProfile() {
   closePopup(popupEditProfile);
 }
 
-// обработчик закрытия окна просмотра фотографий
-function handleClosePopupShowPhoto() {
-  closePopup(popupShowPhoto);
-}
-
 // обработчик отправки формы редактирования профиля
 function handleSubmitFormEditProfile(evt) {
   evt.preventDefault();
@@ -138,10 +105,22 @@ function handleSubmitFormAddProfile(evt) {
 const cardList = new Section({
   data: initialCardsItems,
   renderer: (cardItem) => {
-    const post = new Card(cardItem, '.post-template');
+    const post = new Card({
+      data: cardItem,
+
+      handleCardClick: () => {
+        const popup = new PopupWithImage({
+          data: cardItem
+        }, '.popup_content_photo');
+        popup.open();
+      }
+
+    }, '.post-template');
+
     const postElement = post.generatePost();
     cardList.addItem(postElement);
   }
+
 }, postsSectionSelector);
 
 // вызов отрисовки постов на странице 
@@ -152,7 +131,6 @@ buttonOpenPopupAddPost.addEventListener('click', handleOpenPopupAddPost);
 
 buttonResetPopupEditProfile.addEventListener('click', handleClosePopupEditProfile);
 buttonResetPopupAddPost.addEventListener('click', handleClosePopupAddPost);
-buttonResetPopupShowPhoto.addEventListener('click', handleClosePopupShowPhoto);
 
 formElementEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
 formElementAddPost.addEventListener('submit', handleSubmitFormAddProfile);
@@ -160,5 +138,3 @@ formElementAddPost.addEventListener('submit', handleSubmitFormAddProfile);
 // вызов валидации форм
 editProfileFormValidate.enableValidation();
 addPostFormValidate.enableValidation();
-
-export { openPopup, popupShowPhoto }

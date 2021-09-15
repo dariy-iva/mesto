@@ -8,7 +8,6 @@ export const formElementAddPost = document.querySelector('.popup__form_contain_a
 
 export const popupEditProfile = document.querySelector('#popup-edit-profile');
 export const popupAddPost = document.querySelector('#popup-add-profile');
-export const popupShowPhoto = document.querySelector('#popup-open-photo');
 
 export const nameInput = formElementEditProfile.querySelector('.popup__input_content_name');
 export const aboutMeInput = formElementEditProfile.querySelector('#about-me-input');
@@ -23,4 +22,3 @@ export const buttonSubmitPopupAddProfile = document.querySelector('#popup-add-pr
 
 export const buttonResetPopupEditProfile = document.querySelector('#popup-edit-profile .popup__reset-button');
 export const buttonResetPopupAddPost = document.querySelector('#popup-add-profile .popup__reset-button');
-export const buttonResetPopupShowPhoto = popupShowPhoto.querySelector('.popup__reset-button');
