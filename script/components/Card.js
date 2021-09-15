@@ -1,4 +1,4 @@
-import { openPopup, popupShowPhoto } from './index.js'
+import { openPopup, popupShowPhoto } from '../pages/index.js'
 
 class Card {
   constructor(data, postSelector) {

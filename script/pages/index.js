@@ -1,57 +1,28 @@
-import { Card } from './Card.js';
-import { FormValidator, validationConfig } from './FormValidator.js';
-
-const initialPostsItems = [
-  {
-    name: 'Канада',
-    link: './images/canada.jpg'
-  },
-  {
-    name: 'Норвегия',
-    link: './images/norway.jpg'
-  },
-  {
-    name: 'Россия',
-    link: './images/russia.jpg'
-  },
-  {
-    name: 'Боливия',
-    link: './images/bolivia.jpg'
-  },
-  {
-    name: 'Исландия',
-    link: './images/island.jpg'
-  },
-  {
-    name: 'Румыния',
-    link: './images/romania.jpg'
-  },
-];
-
-const nameProfile = document.querySelector('.profile__name');
-const aboutMeProfile = document.querySelector('.profile__about-me');
-
-const formElementEditProfile = document.querySelector('.popup__form_contain_edit-profile');
-const formElementAddPost = document.querySelector('.popup__form_contain_add-post');
-
-const popupEditProfile = document.querySelector('#popup-edit-profile');
-const popupAddPost = document.querySelector('#popup-add-profile');
-const popupShowPhoto = document.querySelector('#popup-open-photo');
-
-const nameInput = formElementEditProfile.querySelector('.popup__input_content_name');
-const aboutMeInput = formElementEditProfile.querySelector('#about-me-input');
-const placeInput = formElementAddPost.querySelector('#place-input');
-const linkInput = formElementAddPost.querySelector('#link-input');
-
-const buttonOpenPopupEditProfile = document.querySelector('.profile__edit-button');
-const buttonOpenPopupAddPost = document.querySelector('.profile__add-button');
-
-const buttonSubmitFormEditProfile = popupEditProfile.querySelector('.popup__submit-button');
-const buttonSubmitPopupAddProfile = document.querySelector('#popup-add-profile .popup__submit-button');
-
-const buttonResetPopupEditProfile = document.querySelector('#popup-edit-profile .popup__reset-button');
-const buttonResetPopupAddPost = document.querySelector('#popup-add-profile .popup__reset-button');
-const buttonResetPopupShowPhoto = popupShowPhoto.querySelector('.popup__reset-button');
+import { Card } from '../components/Card.js';
+import { FormValidator, validationConfig } from '../components/FormValidator.js';
+import { initialCardsItems } from '../utils/initialCard.js';
+import Section from '../components/Section.js';
+import {
+  nameProfile,
+  aboutMeProfile,
+  formElementEditProfile,
+  formElementAddPost,
+  popupEditProfile,
+  popupAddPost,
+  popupShowPhoto,
+  nameInput,
+  aboutMeInput,
+  placeInput,
+  linkInput,
+  buttonOpenPopupEditProfile,
+  buttonOpenPopupAddPost,
+  buttonSubmitFormEditProfile,
+  buttonSubmitPopupAddProfile,
+  buttonResetPopupEditProfile,
+  buttonResetPopupAddPost,
+  buttonResetPopupShowPhoto,
+  postsSectionSelector
+} from '../utils/constants.js';
 
 const editProfileFormValidate = new FormValidator(validationConfig, formElementEditProfile);
 const addPostFormValidate = new FormValidator(validationConfig, formElementAddPost);
@@ -114,15 +85,6 @@ function hideError(popup) {
   })
 }
 
-// отрисовка постов на странице 
-function renderPosts(item) {
-  const posts = document.querySelector('.posts');
-  const post = new Card(item, '.post-template');
-
-  const postElement = post.generatePost();
-  posts.prepend(postElement);
-}
-
 // обработчик открытия окна добавления поста
 function handleOpenPopupAddPost() {
   hideError(popupAddPost);
@@ -173,6 +135,18 @@ function handleSubmitFormAddProfile(evt) {
   toggleButtonOnDisabled(buttonSubmitPopupAddProfile);
 }
 
+const cardList = new Section({
+  data: initialCardsItems,
+  renderer: (cardItem) => {
+    const post = new Card(cardItem, '.post-template');
+    const postElement = post.generatePost();
+    cardList.addItem(postElement);
+  }
+}, postsSectionSelector);
+
+// вызов отрисовки постов на странице 
+cardList.renderItems();
+
 buttonOpenPopupEditProfile.addEventListener('click', handleOpenPopupEditProfile);
 buttonOpenPopupAddPost.addEventListener('click', handleOpenPopupAddPost);
 
@@ -186,8 +160,5 @@ formElementAddPost.addEventListener('submit', handleSubmitFormAddProfile);
 // вызов валидации форм
 editProfileFormValidate.enableValidation();
 addPostFormValidate.enableValidation();
-
-// вызов отрисовки постов на странице 
-initialPostsItems.forEach(renderPosts);
 
 export { openPopup, popupShowPhoto }
