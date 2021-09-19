@@ -38,19 +38,19 @@
 		<footer class="footer">
 			<p class="footer__author">&copy;&nbsp;2021 Daria Ivanova</p>
 		</footer>
-		<div class="popup" id="popup-edit-profile">
+		<div class="popup popup_content_form-edit-profile" id="popup-edit-profile">
 			<div class="popup__container">
 				<h2 class="popup__title">Редактировать профиль</h2>
 				<form action="#" name="formEditProfile" class="popup__form popup__form_contain_edit-profile">
 					<fieldset class="popup__fieldset">
 						<label class="popup__field">
 							<input type="text" class="popup__input popup__input_content_name" placeholder="Имя"
-								name="formNameInput" required minlength="2" maxlength="40" id="name-input">
+								name="name" required minlength="2" maxlength="40" id="name-input">
 							<span class="popup__error name-input-error"></span>
 						</label>
 						<label class="popup__field">
 							<input type="text" class="popup__input" placeholder="Профессиональная деятельность" id="about-me-input"
-								name="formAboutMeInput" required minlength="2" maxlength="200">
+								name="aboutMe" required minlength="2" maxlength="200">
 							<span class="popup__error about-me-input-error"></span>
 						</label>
 					</fieldset>
@@ -59,19 +59,19 @@
 				</form>
 			</div>
 		</div>
-		<div class="popup" id="popup-add-profile">
+		<div class="popup popup_content_form-add-post" id="popup-add-profile">
 			<div class="popup__container">
 				<h2 class="popup__title">Новое место</h2>
 				<form action="#" name="formAddProfile" id="form-add-profile" class="popup__form popup__form_contain_add-post">
 					<fieldset class="popup__fieldset">
 						<label class="popup__field">
-							<input type="text" class="popup__input" placeholder="Название" id="place-input" name="formMestoInput"
+							<input type="text" class="popup__input" placeholder="Название" id="place-input" name="mesto"
 								required minlength="2" maxlength="30">
 							<span class="popup__error place-input-error"></span>
 						</label>
 						<label class="popup__field">
 							<input type="url" class="popup__input" placeholder="Ссылка на картинку" id="link-input"
-								name="formLinkInput" required>
+								name="link" required>
 							<span class="popup__error link-input-error"></span>
 						</label>
 					</fieldset>

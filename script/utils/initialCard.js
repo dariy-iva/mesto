@@ -1,26 +1,26 @@
 export const initialCardsItems = [
   {
-    name: 'Канада',
+    mesto: 'Канада',
     link: './images/canada.jpg'
   },
   {
-    name: 'Норвегия',
+    mesto: 'Норвегия',
     link: './images/norway.jpg'
   },
   {
-    name: 'Россия',
+    mesto: 'Россия',
     link: './images/russia.jpg'
   },
   {
-    name: 'Боливия',
+    mesto: 'Боливия',
     link: './images/bolivia.jpg'
   },
   {
-    name: 'Исландия',
+    mesto: 'Исландия',
     link: './images/island.jpg'
   },
   {
-    name: 'Румыния',
+    mesto: 'Румыния',
     link: './images/romania.jpg'
   },
 ];

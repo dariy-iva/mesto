@@ -1,7 +1,7 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._buttonResetPopup = this._popup.querySelector('.popup__reset-button');
+    this._buttonResetPopupElement = this._popup.querySelector('.popup__reset-button');
     this._handleEscCloseCallback = this._handleEscClose.bind(this);
     this._handleOverlayCloseCallback = this._handleOverlayClose.bind(this);
     this._handleCloseCallback = this.close.bind(this);
@@ -30,13 +30,13 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._buttonResetPopup.addEventListener('click', this._handleCloseCallback);
+    this._buttonResetPopupElement.addEventListener('click', this._handleCloseCallback);
     document.addEventListener('keydown', this._handleEscCloseCallback);
     this._popup.addEventListener('click', this._handleOverlayCloseCallback);
   }
 
   removeEventListeners() {
-    this._buttonResetPopup.removeEventListener('click', this._handleCloseCallback);
+    this._buttonResetPopupElement.removeEventListener('click', this._handleCloseCallback);
     document.removeEventListener('keydown', this._handleEscCloseCallback);
     this._popup.removeEventListener('click', this._handleOverlayCloseCallback);
   }

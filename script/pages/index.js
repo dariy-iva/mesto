@@ -1,105 +1,48 @@
-import Card from '../components/Card.js';
-import { FormValidator, validationConfig } from '../components/FormValidator.js';
-import { initialCardsItems } from '../utils/initialCard.js';
-import Section from '../components/Section.js';
 import {
-  nameProfile,
-  aboutMeProfile,
-  formElementEditProfile,
-  formElementAddPost,
-  popupEditProfile,
-  popupAddPost,
-  nameInput,
-  aboutMeInput,
-  placeInput,
-  linkInput,
-  buttonOpenPopupEditProfile,
-  buttonOpenPopupAddPost,
-  buttonSubmitFormEditProfile,
-  buttonSubmitPopupAddProfile,
-  buttonResetPopupEditProfile,
-  buttonResetPopupAddPost,
-  postsSectionSelector
+  userNameProfileSelector,
+  userAboutMeSelector,
+  postsSectionSelector,
+  postTemplateSelector,
+  popupContentPhotoSelector,
+  popupContentFormAddPostSelector,
+  popupContentFormEditProfileSelector,
+  formEditProfileElement,
+  formAddPostElement,
+  buttonOpenPopupEditProfileElement,
+  buttonOpenPopupAddPostElement,
+  buttonSubmitFormEditProfileElement,
+  buttonSubmitPopupAddProfileElement
 } from '../utils/constants.js';
+import { initialCardsItems } from '../utils/initialCard.js';
+import { toggleButtonOnActive, toggleButtonOnDisabled } from '../utils/utils.js';
+
+import Card from '../components/Card.js';
+import { validationConfig, FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
-const editProfileFormValidate = new FormValidator(validationConfig, formElementEditProfile);
-const addPostFormValidate = new FormValidator(validationConfig, formElementAddPost);
+const editProfileFormValidate = new FormValidator(validationConfig, formEditProfileElement);
+const addPostFormValidate = new FormValidator(validationConfig, formAddPostElement);
 
-// заполнение полей в форме редактирования профиля данными со страницы
-function setInfoInPopupProfile() {
-  nameInput.value = nameProfile.textContent;
-  aboutMeInput.value = aboutMeProfile.textContent;
-}
+// вызов валидации форм
+editProfileFormValidate.enableValidation();
+addPostFormValidate.enableValidation();
 
-// переключение кнопки в активное состояние
-function toggleButtonOnActive(buttonElement) {
-  buttonElement.classList.remove('popup__submit-button_inactive');
-  buttonElement.disabled = false;
-}
-
-// переключение кнопки в неактивное состояние
-function toggleButtonOnDisabled(buttonElement) {
-  buttonElement.classList.add('popup__submit-button_inactive');
-  buttonElement.disabled = true;
-}
-
-// скрыть ошибки в форме при повторном открытии
-function hideError(popup) {
-  const inputElements = Array.from(popup.querySelectorAll('.popup__input'));
-  inputElements.forEach((inputElement) => {
-    inputElement.classList.remove('popup__input_type_error');
+// скрыть ошибки в форме (используется внутри обработчиков открытия попапов с формами)
+function hideErrorForm(formValidate) {
+  formValidate.inputList.forEach(input => {
+    formValidate.hideInputError(input);
   });
-  const errorElements = Array.from(popup.querySelectorAll('.popup__error'));
-  errorElements.forEach((errorElement) => {
-    errorElement.classList.remove('popup__error_visible');
-    errorElement.textContent = '';
-  })
 }
 
-// обработчик открытия окна добавления поста
-function handleOpenPopupAddPost() {
-  hideError(popupAddPost);
-  openPopup(popupAddPost);
-}
-
-// обработчик закрытия окна добавления поста
-function handleClosePopupAddPost() {
-  closePopup(popupAddPost);
-}
-
-// обработчик открытия окна редактирования профиля
-function handleOpenPopupEditProfile() {
-  setInfoInPopupProfile();
-  toggleButtonOnActive(buttonSubmitFormEditProfile);
-  hideError(popupEditProfile);
-  openPopup(popupEditProfile);
-}
-
-// обработчик закрытия окна редактирования профиля
-function handleClosePopupEditProfile() {
-  closePopup(popupEditProfile);
-}
-
-// обработчик отправки формы редактирования профиля
-function handleSubmitFormEditProfile(evt) {
-  evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  aboutMeProfile.textContent = aboutMeInput.value;
-  closePopup(popupEditProfile);
-}
-
-// обработчик отправки формы добавления поста
-function handleSubmitFormAddProfile(evt) {
-  evt.preventDefault();
-  const newPost = {
-    name: placeInput.value,
-    link: linkInput.value
-  }
-  renderPosts(newPost);
-  closePopup(popupAddPost);
-  popupAddPost.querySelector('.popup__form').reset();
-  toggleButtonOnDisabled(buttonSubmitPopupAddProfile);
+// обработчик клика по карточке
+function handleCardClick(dataParam) {
+    const popup = new PopupWithImage({
+      data: dataParam
+    }, popupContentPhotoSelector);
+    popup.open();
 }
 
 const cardList = new Section({
@@ -107,34 +50,53 @@ const cardList = new Section({
   renderer: (cardItem) => {
     const post = new Card({
       data: cardItem,
-
-      handleCardClick: () => {
-        const popup = new PopupWithImage({
-          data: cardItem
-        }, '.popup_content_photo');
-        popup.open();
-      }
-
-    }, '.post-template');
+      handleCardClick: () => handleCardClick(cardItem)
+    }, postTemplateSelector);
 
     const postElement = post.generatePost();
     cardList.addItem(postElement);
   }
-
 }, postsSectionSelector);
 
 // вызов отрисовки постов на странице 
 cardList.renderItems();
 
-buttonOpenPopupEditProfile.addEventListener('click', handleOpenPopupEditProfile);
-buttonOpenPopupAddPost.addEventListener('click', handleOpenPopupAddPost);
+// обработчик открытия попапа добавления поста
+function handleOpenPopupAddPost() {
+  const popup = new PopupWithForm({
+    handleSubmitForm: (item) => {
+      const post = new Card({
+        data: item,
+        handleCardClick: () => handleCardClick(item)
+      }, postTemplateSelector);
 
-buttonResetPopupEditProfile.addEventListener('click', handleClosePopupEditProfile);
-buttonResetPopupAddPost.addEventListener('click', handleClosePopupAddPost);
+      const postElement = post.generatePost();
+      cardList.addItem(postElement);
+      popup.close();
+    }
+  }, popupContentFormAddPostSelector);
 
-formElementEditProfile.addEventListener('submit', handleSubmitFormEditProfile);
-formElementAddPost.addEventListener('submit', handleSubmitFormAddProfile);
+  hideErrorForm(addPostFormValidate);
+  toggleButtonOnDisabled(buttonSubmitPopupAddProfileElement);
+  popup.open();
+}
 
-// вызов валидации форм
-editProfileFormValidate.enableValidation();
-addPostFormValidate.enableValidation();
+const userInfo = new UserInfo({ userNameProfileSelector, userAboutMeSelector });
+
+// обработчик открытия попапа редактирования профиля
+function handleOpenPopupEditProfile() {
+  const popup = new PopupWithForm({
+    handleSubmitForm: (item) => {
+      userInfo.setUserInfo(item);
+      popup.close();
+    }
+  }, popupContentFormEditProfileSelector);
+
+  popup.setInputValues(userInfo.getUserInfo());
+  hideErrorForm(editProfileFormValidate);
+  toggleButtonOnActive(buttonSubmitFormEditProfileElement);
+  popup.open();
+}
+
+buttonOpenPopupAddPostElement.addEventListener('click', handleOpenPopupAddPost);
+buttonOpenPopupEditProfileElement.addEventListener('click', handleOpenPopupEditProfile);
