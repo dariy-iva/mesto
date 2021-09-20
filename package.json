@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "На данный момент проект находится в стадии разработки - готова верстка, реализованы модальные окно popup для редактирования персональной информации (введенные пользователем данные в форме отображаются на странице), добавления постов на страницу, просмотра фотографий крупным планом, работают кнопки по добавлению/удалению лайков к постам, удаление постов.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariy-iva/mesto.git"
+  },
+  "author": "Daria Ivanova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dariy-iva/mesto/issues"
+  },
+  "homepage": "https://github.com/dariy-iva/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
+  }
+}
