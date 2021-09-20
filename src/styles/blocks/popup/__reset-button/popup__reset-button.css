@@ -2,7 +2,7 @@
 	width: 32px;
 	height: 32px;
 	border: none;
-	background: url(../../../images/reset-button.svg) no-repeat center;
+	background: url(../../../../images/reset-button.svg) no-repeat center;
 	position: absolute;
 	top: calc(-8px - 32px);
 	right: calc(-8px - 32px);

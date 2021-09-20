@@ -1,3 +1,5 @@
+import './styles/index.css'
+
 import {
   userNameProfileSelector,
   userAboutMeSelector,
@@ -12,16 +14,16 @@ import {
   buttonOpenPopupAddPostElement,
   buttonSubmitFormEditProfileElement,
   buttonSubmitPopupAddProfileElement
-} from '../script/utils/constants.js';
-import { initialCardsItems } from '../script/utils/initialCard.js';
-import { toggleButtonOnActive, toggleButtonOnDisabled } from '../script/utils/utils.js';
+} from './script/utils/constants.js';
+import { initialCardsItems } from './script/utils/initialCard.js';
+import { toggleButtonOnActive, toggleButtonOnDisabled } from './script/utils/utils.js';
 
-import Card from '../script/components/Card.js';
-import { validationConfig, FormValidator } from '../script/components/FormValidator.js';
-import Section from '../script/components/Section.js';
-import PopupWithImage from '../script/components/PopupWithImage.js';
-import PopupWithForm from '../script/components/PopupWithForm.js';
-import UserInfo from '../script/components/UserInfo.js';
+import Card from './script/components/Card.js';
+import { validationConfig, FormValidator } from './script/components/FormValidator.js';
+import Section from './script/components/Section.js';
+import PopupWithImage from './script/components/PopupWithImage.js';
+import PopupWithForm from './script/components/PopupWithForm.js';
+import UserInfo from './script/components/UserInfo.js';
 
 const editProfileFormValidate = new FormValidator(validationConfig, formEditProfileElement);
 const addPostFormValidate = new FormValidator(validationConfig, formAddPostElement);
