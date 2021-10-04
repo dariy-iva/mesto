@@ -1,3 +1,4 @@
+@import url(../styles/blocks/keyframes/keyframes.css);
 @import url(../styles/vendor/normalize.css);
 @import url(../styles/vendor/fonts/Inter/inter.css);
 @import url(../styles/blocks/link-hover/link-hover.css);
@@ -7,6 +8,7 @@
 @import url(../styles/blocks/header/__logo/header__logo.css);
 @import url(../styles/blocks/profile/profile.css);
 @import url(../styles/blocks/profile/__avatar/profile__avatar.css);
+@import url(../styles/blocks/profile/__edit-avatar/profile__edit-avatar.css);
 @import url(../styles/blocks/profile/__info/profile__info.css);
 @import url(../styles/blocks/profile/__name/profile__name.css);
 @import url(../styles/blocks/profile/__about-me/profile__about-me.css);
@@ -18,7 +20,10 @@
 @import url(../styles/blocks/post/__caption/post__caption.css);
 @import url(../styles/blocks/post/__like-button/post__like-button.css);
 @import url(../styles/blocks/post/__del-button/post__del-button.css);
+@import url(../styles/blocks/post/__del-button/_visible/post__del-button_visible.css);
+@import url(../styles/blocks/post/__likes/post__likes.css);
 @import url(../styles/blocks/post/__like-button/_active/post__like-button_active.css);
+@import url(../styles/blocks/post/__likes-number/post__likes-number.css);
 @import url(../styles/blocks/footer/footer.css);
 @import url(../styles/blocks/footer/__author/footer__author.css);
 @import url(../styles/blocks/popup/popup.css);
@@ -26,6 +31,7 @@
 @import url(../styles/blocks/popup/_opened/popup_opened.css);
 @import url(../styles/blocks/popup/__container/popup__container.css);
 @import url(../styles/blocks/popup/__title/popup__title.css);
+@import url(../styles/blocks/popup/__title/_no-input/popup__title_no-input.css);
 @import url(../styles/blocks/popup/__fieldset/popup__fieldset.css);
 @import url(../styles/blocks/popup/__field/popup__field.css);
 @import url(../styles/blocks/popup/__input/popup__input.css);
@@ -35,6 +41,7 @@
 @import url(../styles/blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../styles/blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../styles/blocks/popup/__submit-button/_inactive/popup__submit-button_inactive.css);
+@import url(../styles/blocks/popup/__loading/popup__loading.css);
 @import url(../styles/blocks/popup/__reset-button/popup__reset-button.css);
 @import url(../styles/blocks/popup/__photo-box/popup__photo-box.css);
 @import url(../styles/blocks/popup/__photo/popup__photo.css);

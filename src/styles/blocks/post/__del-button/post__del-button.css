@@ -1,4 +1,5 @@
 .post__del-button {
+	display: none;
 	background: url(../../../../images/delete-button.svg) no-repeat center;
 	width: 18px;
 	height: 19px;

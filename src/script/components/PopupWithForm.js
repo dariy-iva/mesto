@@ -40,4 +40,13 @@ export default class PopupWithForm extends Popup {
     super.close();
     this._formElement.reset();
   }
+
+  renderLoading(isLoading) {
+    this._buttonSubmitFormElement = this._popup.querySelector('.popup__submit-button');
+    if(isLoading) {
+      this._buttonSubmitFormElement.classList.add('popup__loading');
+    } else {
+      this._buttonSubmitFormElement.classList.remove('popup__loading');
+    }
+  }
 }

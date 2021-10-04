@@ -10,7 +10,7 @@ export default class PopupWithImage extends Popup {
   open(data) {
     super.open();
     this._imageElement.src = data.link;
-    this._imageElement.alt = data.mesto;
-    this._captionElement.textContent = data.mesto;
+    this._imageElement.alt = data.name;
+    this._captionElement.textContent = data.name;
   }
 }

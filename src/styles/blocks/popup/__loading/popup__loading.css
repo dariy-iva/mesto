@@ -1,0 +1,8 @@
+.popup__loading::after {
+  content: '.';
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  animation: loading 1s ease infinite;
+}

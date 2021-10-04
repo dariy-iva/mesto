@@ -2,10 +2,8 @@
 	background: url(../../../../images/like-button.svg) no-repeat center;
 	width: 22px;
 	height: 19px;
+	margin-bottom: 5px;
 	border: none;
-	position: absolute;
-	right: 20px;
-	bottom: 30px;
 	cursor: pointer;
 	transition: opacity .3s;
 }
