@@ -40,19 +40,13 @@ const popupEditProfile = new PopupWithForm({
     popupEditProfile.renderLoading(true);
     const postUserInfoInServer = api.postUserInfo(item);
     postUserInfoInServer
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupEditProfile.close();
       })
       .catch(err => console.log(err))
       .finally(() => {
         popupEditProfile.renderLoading(false);
-        popupEditProfile.close();
       })
   }
 }, popupContentFormEditProfileSelector);
@@ -63,18 +57,12 @@ const popupAddPost = new PopupWithForm({
     const postPostInServer = api.postPost(item);
     postPostInServer
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .then((res) => {
-        createPost(res);
+        cardList.addItem(createPost(res));
+        popupAddPost.close();
       })
       .catch(err => console.log(err))
       .finally(() => {
         popupAddPost.renderLoading(false);
-        popupAddPost.close();
       })
   }
 }, popupContentFormAddPostSelector);
@@ -85,18 +73,12 @@ const popupEditAvatar = new PopupWithForm({
     const postAvatarInServer = api.postUserAvatar(item);
     postAvatarInServer
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .then((res) => {
         userInfo.setUserAvatar(res);
+        popupEditAvatar.close();
       })
       .catch(err => console.log(err))
       .finally(() => {
         popupEditAvatar.renderLoading(false);
-        popupEditAvatar.close();
       })
   }
 }, popupContentFormEditAvatarSelector);
@@ -105,7 +87,7 @@ const popupEditAvatar = new PopupWithForm({
 const popupDeletePost = new PopupDeletePost(popupContentFormDeletePostSelector);
 
 const cardList = new Section({
-  renderer: (postItem) => createPost(postItem)
+  renderer: (postItem) => cardList.addItem(createPost(postItem))
 }, postsSectionSelector);
 
 const userInfo = new UserInfo(userInfoConfig);
@@ -114,34 +96,25 @@ const api = new Api(apiConfig);
 const searchUserInfoServer = api.searchUserInfo();
 const searchPostsServer = api.searchPosts();
 
-function getUserInfo() {
-  searchUserInfoServer
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .then((data) => {
-      userInfo.setUserInfo(data);
-      userInfo.setUserAvatar(data);
-    })
-    .catch(err => console.log(err))
-}
+searchUserInfoServer
+  .then((data) => {
+    userInfo.setUserInfo(data);
+    userInfo.setUserAvatar(data);
+  })
+  .catch(err => console.log(err))
 
-function getPosts() {
-  searchPostsServer
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .then((res) => {
-      cardList.renderItems(res);
-    })
-    .catch(err => console.log(err))
-}
+searchPostsServer
+  .then((res) => {
+    return res;
+  })
+  .catch(err => console.log(err))
+
+// вызвать отрисовку постов, полученных с сервера 
+const promisesForRenderPosts = [searchUserInfoServer, searchPostsServer];
+Promise.all(promisesForRenderPosts)
+  .then((res) => {
+    cardList.renderItems(res[1]);
+  })
 
 // создать пост
 function createPost(dataItem) {
@@ -150,27 +123,9 @@ function createPost(dataItem) {
     handleButtonDelClick: () => handleButtonDelClick(postElement),
     handleButtonLikeClick: () => handleButtonLikeClick(post, postElement)
   }, postTemplateSelector);
+  const postElement = post.generatePost(dataItem, userInfo._userInfo.id);
 
-  const postElement = post.generatePost(dataItem);
-
-  if (postElement.ownerId === userInfo._userInfo.id) {
-    post.toggleButtonDelOnVisible();
-  }
-
-  renderLikeUser(postElement, post);
-
-  cardList.addItem(postElement);
-}
-
-// отрисовать лайк пользователя (используется при загрузке карточек с сервера)
-function renderLikeUser(post, postPrototype) {
-  const myLikes = post.likes.filter((item) => {
-    return item._id === userInfo._userInfo.id
-  });
-
-  if (myLikes.length !== 0) {
-    postPrototype.toggleButtonLike();
-  }
+  return postElement;
 }
 
 // скрыть ошибки в форме и переключить кнопку (используется внутри обработчиков открытия попапов с формами)
@@ -188,12 +143,6 @@ function handleButtonLikeClick(post, postElement) {
     const postLikePost = api.postLikePost(postElement.cardId);
     postLikePost
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .then((res) => {
         post.addLikePost(res.likes.length);
       })
       .catch(err => console.log(err))
@@ -202,12 +151,6 @@ function handleButtonLikeClick(post, postElement) {
 
     const postDelLikePost = api.postDelLikePost(postElement.cardId);
     postDelLikePost
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
       .then((res) => {
         post.deleteLikePost(res.likes.length);
       })
@@ -222,19 +165,11 @@ function handleButtonDelClick(postElement) {
     handleSubmitForm: () => {
       const postDeletePost = api.postDeletePost(postElement.cardId);
       postDeletePost
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(res.status);
-        })
         .then(() => {
           postElement.remove();
-        })
-        .catch(err => console.log(err))
-        .finally(() => {
           popupDeletePost.close();
         })
+        .catch(err => console.log(err))
     }
   });
 }
@@ -262,12 +197,6 @@ function handleOpenPopupEditAvatar() {
   hideErrorAndToggleButtonForm(editAvatarFormValidate);
   popupEditAvatar.open();
 }
-
-// записать данные пользователя с сервера в поля страницы
-getUserInfo();
-
-// вызвать отрисовку постов, полученных с сервера 
-getPosts();
 
 // вызвать валидацию форм
 editProfileFormValidate.enableValidation();

@@ -22,6 +22,32 @@ export default class Card {
     return postTemplate;
   }
 
+  _toggleButtonDelOnVisible() {
+    this._buttonDelElement.classList.add('post__del-button_visible');
+  }
+
+  _renderLikeUser(userId) {
+    this._likesUser = this._element.likes.filter((item) => {
+      return item._id === userId;
+    });
+
+    if (this._likesUser.length !== 0) {
+      this.toggleButtonLike();
+    }
+  }
+
+  _verifyCardOwnerUser(userId) {
+    if (this._element.ownerId === userId) {
+      this._toggleButtonDelOnVisible();
+    }
+  }
+
+  _setEventListeners() {
+    this.buttonLikeElement.addEventListener('click', this._handleButtonLikeClick.bind(this));
+    this._buttonDelElement.addEventListener('click', this._handleButtonDelClick.bind(this));
+    this._photoElement.addEventListener('click', this._handleCardClick.bind(this));
+  }
+
   addLikePost(likesNumber) {
     this._likesNumberElement.textContent = likesNumber;
   }
@@ -34,17 +60,7 @@ export default class Card {
     this.buttonLikeElement.classList.toggle('post__like-button_active');
   }
 
-  toggleButtonDelOnVisible() {
-    this._buttonDelElement.classList.add('post__del-button_visible');
-  }
-
-  _setEventListeners() {
-    this.buttonLikeElement.addEventListener('click', this._handleButtonLikeClick.bind(this));
-    this._buttonDelElement.addEventListener('click', this._handleButtonDelClick.bind(this));
-    this._photoElement.addEventListener('click', this._handleCardClick.bind(this));
-  }
-
-  generatePost(data) {
+  generatePost(data, userId) {
     this._setEventListeners();
 
     this._photoElement.src = data.link;
@@ -55,6 +71,8 @@ export default class Card {
     this._element.ownerId = data.owner._id;
     this._element.likesNumber = data.likes.length;
     this._element.likes = data.likes;
+    this._renderLikeUser(userId);
+    this._verifyCardOwnerUser(userId);
 
     return this._element;
   }

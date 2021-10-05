@@ -5,12 +5,20 @@ export default class Api {
     this._adress = objConfig.adress;
   }
 
+  _verifyResolve(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
+  }
+
   searchUserInfo() {
     return fetch(`https://${this._adress}/v1/${this._id}/users/me`, {
       headers: {
         authorization: this._token
       }
     })
+      .then(this._verifyResolve)
   }
 
   searchPosts() {
@@ -19,6 +27,7 @@ export default class Api {
         authorization: this._token
       }
     })
+      .then(this._verifyResolve)
   }
 
   postUserInfo(data) {
@@ -33,6 +42,7 @@ export default class Api {
         about: data.about
       })
     })
+      .then(this._verifyResolve)
   }
 
   postUserAvatar(data) {
@@ -46,6 +56,7 @@ export default class Api {
         avatar: data.avatar
       })
     })
+      .then(this._verifyResolve)
   }
 
   postPost(data) {
@@ -60,6 +71,7 @@ export default class Api {
         link: data.link
       })
     })
+      .then(this._verifyResolve)
   }
 
   postDeletePost(postId) {
@@ -69,6 +81,7 @@ export default class Api {
         authorization: this._token
       }
     })
+      .then(this._verifyResolve)
   }
 
   postLikePost(postId) {
@@ -78,6 +91,7 @@ export default class Api {
         authorization: this._token
       }
     })
+      .then(this._verifyResolve)
   }
 
   postDelLikePost(postId) {
@@ -87,5 +101,6 @@ export default class Api {
         authorization: this._token
       }
     })
+      .then(this._verifyResolve)
   }
 }
